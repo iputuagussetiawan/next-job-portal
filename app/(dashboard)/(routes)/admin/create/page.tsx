@@ -7,6 +7,7 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { Form, FormProvider, useForm } from 'react-hook-form'
 import { z } from "zod"
+import axios from 'axios'
 const formSchema = z.object({
     title: z.string().min(1,{message: "Job title is required"}).max(50),
 })
@@ -22,7 +23,12 @@ const JobCreatePage=()=> {
     const {isSubmitting, isValid}=form.formState
 
     const onSubmit=async(data: z.infer<typeof formSchema>)=>{
-        console.log(data)
+        try {
+            const response=await axios.post("/api/jobs",data)
+            console.log(response)
+        } catch (error) {
+            console.log(`[JOB_POST]: ${error}`);
+        }
     }
     return (
     <div className='max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6'>

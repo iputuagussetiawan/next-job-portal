@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import React from 'react'
 import JobPublishAction from './_components/job-publish-action';
+import Banner from '@/components/banner';
 
 const JobDetailPage =async({params}:{params:{jobId:string}}) => {
     //verify mongoDB ID
@@ -58,6 +59,12 @@ const JobDetailPage =async({params}:{params:{jobId:string}}) => {
                     isPublished={job.isPublished}
                 />
             </div>
+            {!job.isPublished && (
+                <Banner
+                    variant="warning"
+                    label="This job is not published yet"
+                />
+            )}
         </div>
     )
 }

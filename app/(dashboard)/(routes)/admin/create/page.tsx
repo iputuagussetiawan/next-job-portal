@@ -8,11 +8,14 @@ import React, { useState } from 'react'
 import { Form, FormProvider, useForm } from 'react-hook-form'
 import { z } from "zod"
 import axios from 'axios'
+import { useRouter } from 'next/navigation'
+import toast from 'react-hot-toast'
 const formSchema = z.object({
     title: z.string().min(1,{message: "Job title is required"}).max(50),
 })
 
 const JobCreatePage=()=> {
+    const router=useRouter();
     const form=useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -26,6 +29,8 @@ const JobCreatePage=()=> {
         try {
             const response=await axios.post("/api/jobs",data)
             console.log(response)
+            router.push(`/admin/jobs/${response.data.id}`);
+            toast.success("Job created successfully");
         } catch (error) {
             console.log(`[JOB_POST]: ${error}`);
         }
@@ -57,7 +62,7 @@ const JobCreatePage=()=> {
                         )}
                     />
                     <div className="flex items-center gap-2">
-                        <Link href="/">
+                        <Link href="/admin/jobs">
                             <Button type="button" variant={'outline'}>Cancel</Button>
                         </Link>
                         <Button type="submit" disabled={!isValid || isSubmitting}>Continue</Button>

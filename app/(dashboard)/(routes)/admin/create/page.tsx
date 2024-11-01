@@ -37,7 +37,7 @@ const JobCreatePage=()=> {
     }
     return (
     <div className='max-w-5xl mx-auto flex md:items-center md:justify-center h-full p-6'>
-        <div>
+        <div className='w-full'>
             <h1 className='text-2xl'>Name your job</h1>
             <p className='text-sm text-neutral-500 mb-5'>What is your job title? to describe your job, Dont worry, you can change it anytime</p>
             {/* Form Here */}
@@ -50,7 +50,7 @@ const JobCreatePage=()=> {
                         <FormItem>
                             <FormLabel>Job Title</FormLabel>
                             <FormControl>
-                                <Input 
+                                <Input className='h-20 text-2xl'
                                     disabled={isSubmitting} 
                                     placeholder="Full Stack Developer" {...field} />
                             </FormControl>

@@ -1,11 +1,13 @@
 import { db } from '@/lib/db';
 import { auth } from '@clerk/nextjs/server';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, LayoutDashboard } from 'lucide-react';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import React from 'react'
 import JobPublishAction from './_components/job-publish-action';
 import Banner from '@/components/banner';
+import IconBadge from '@/components/icon-badge';
+import { TitleForm } from './_components/title-form';
 
 const JobDetailPage =async({params}:{params:{jobId:string}}) => {
     //verify mongoDB ID
@@ -65,6 +67,17 @@ const JobDetailPage =async({params}:{params:{jobId:string}}) => {
                     label="This job is not published yet"
                 />
             )}
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
+                <div>
+                    <div className="flex items-center gap-x-2">
+                        <IconBadge icon={LayoutDashboard} variant="default"/>
+                        <h2 className='text-2xl text-neutral-700'>Customize Your Jobs</h2>
+                    </div>
+
+                    <TitleForm initialData={job} jobId={job.id}/>
+                </div>
+            </div>
         </div>
     )
 }
